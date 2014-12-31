@@ -2,9 +2,12 @@
 
 There are many ways to create a minecraft server: this is mine.
 
-Creates a minecraft server (on debian stable) including an
+Creates a minecraft server on debian stable including an
 [overviewer](http://overviewer.org) map updated daily. It should be tuned
 sufficiently to handle 5 to 10 concurrent users on a 1GB digitalocean image.
+
+If you're not familiar with cloud hosting providers, vagrant, linux, and other
+sysadmin-y things, this probably isn't for you.
 
 ## Getting started
 
@@ -41,10 +44,26 @@ screen session via:
 Protip: One can run multiple minecraft servers by sourcing different `.env`
 files before using `vagrant`.
 
-## License
+## The future
 
-GPLv3 or ask me nicely if you'd like something else.
+* Do some additional `server.properties` configuring - whitelisting, seeds, etc.
+* Mods
+* Hardening
+* Thoroughly audit provisioning orthogonality
+
+## Contributing and/or reporting issues
+
+* Open a github issue to discuss your fix or improvement. Be nice, always.
+* PRs gratefully accepted, expect constructive feedback.
 
 ## Contributors
 
 * [djcp](http://github.com/djcp)
+
+## License
+
+GPLv3 or ask me nicely if you'd like something else.
+
+## Copyright
+
+* Dan Collis Puro, 2014
