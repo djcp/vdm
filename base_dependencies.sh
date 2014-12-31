@@ -6,7 +6,7 @@ wget -O - http://overviewer.org/debian/overviewer.gpg.asc | sudo apt-key add -
 aptitude update && aptitude dist-upgrade -y
 aptitude install -y vim-nox default-jdk screen htop python2.6 minecraft-overviewer htop nginx-light
 
-if id minecraft &> /dev/null; then
+if ! id minecraft &> /dev/null; then
   echo 'initializing minecraft user'
   adduser minecraft --system --group --shell /bin/bash
   sudo -u minecraft bash -c 'mkdir ~/minecraft/ && mkdir ~/bin/ && wget -O ~/minecraft/minecraft_server.jar https://s3.amazonaws.com/Minecraft.Download/versions/1.8.1/minecraft_server.1.8.1.jar'
@@ -45,7 +45,7 @@ server {
   /etc/init.d/nginx restart
 fi
 
-if (sudo -u minecraft crontab -l | grep screen) &> /dev/null ; then
+if ! (sudo -u minecraft crontab -l | grep screen) &> /dev/null ; then
   echo 'installing reboot minecraft server task in a shared screen session'
   echo 'installing overviewer daily re-render'
   echo '@reboot screen -dmS minecraft ~/bin/start_minecraft.sh
