@@ -1,4 +1,4 @@
-# Minecraft for digitalocean via vagrant
+# Vagrant :: Digitalocean :: Minecraft
 
 There are many ways to create a minecraft server: this is mine.
 
@@ -13,26 +13,37 @@ sufficiently to handle 5 to 10 concurrent users on a 1GB digitalocean image.
 * Create a digitalocean account and API token
 * `git clone http://github.com/djcp/vdm.git vdm && cd vdm`
 * Set up a file named `.env` based on `.env.example` including your values, most importantly your API token
-* `source .env && vagrant up --provider=digital_ocean` # Time passes
-* `vagrant ssh` # You're root!
-* `sudo -u minecraft -i` # Launch a shell as the minecraft user
-* Edit `~/minecraft/eula.txt` to accept the eula.
-* Configure `~/minecraft/server.properties`
-* Reboot via `vagrant halt && source .env && vagrant up --provider=digital_ocean`, or you can just reboot the minecraft server on your own.
+* `source .env && vagrant up --provider=digital_ocean` # Time passes.
+* `source .env && vagrant ssh` # You're root!
+* `sudo -u minecraft -i` # Launch a shell as the minecraft user, or
+* `screen -x minecraft/minecraft` to access the running minecraft server
 
 ## Notes
 
-We set up two cron jobs under the "minecraft" user - one to start the minecraft
-server in a shared screen settion at boot and another to update the overviewer
-map daily.
+You must set `EULA_ACCEPTED` to `true` in your .env to allow the setup to
+complete and start a working minecraft server.
 
-You can access the cron-started minecraft server in a shared session as root (say, after `vagrant ssh`), via:
+We set up two cron jobs under the "minecraft" user:
+
+* One to start the minecraft server in a shared screen session at boot, and
+* One to update the overviewer map daily.
+
+After configuration and a reboot, you can access the cron-started minecraft
+server in a shared session as root (say, after `vagrant ssh`), via:
 
     screen -x minecraft/minecraft
 
-You can manually start the minecraft server in a shared screen session via:
+As root, you can manually start the minecraft server in a shared minecraft user
+screen session via:
 
-    sudo -u minecraft screen -dmS minecraft ~/bin/start_minecraft.sh
+    sudo -u minecraft -i bash -c 'screen -dmS minecraft ~/bin/start_minecraft.sh'
+
+Protip: One can run multiple minecraft servers by sourcing different `.env`
+files before using `vagrant`.
+
+## License
+
+GPLv3 or ask me nicely if you'd like something else.
 
 ## Contributors
 
