@@ -1,4 +1,4 @@
-MINECRAFT_HOSTNAME = (ENV['MINECRAFT_HOSTNAME'] || 'minecraft')
+MINECRAFT_HOSTNAME = (ENV['MINECRAFT_HOSTNAME'] || 'default')
 VM_SIZE = (ENV['VM_SIZE'] || '1GB')
 TOKEN = ENV['DIGITALOCEAN_TOKEN']
 REGION = (ENV['REGION'] || 'nyc3')
@@ -16,5 +16,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     provider.region = REGION
   end
 
+  config.vm.define MINECRAFT_HOSTNAME
   config.vm.provision 'shell', path: 'base_dependencies.sh'
 end
